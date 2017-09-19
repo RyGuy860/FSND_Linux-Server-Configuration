@@ -5,6 +5,7 @@ The purpose of this project is to configure a Linux virtual machine to host my I
 - You can visit http://34.235.117.81 to view the website in your browser.
 - Accessible SSH Port: 2200
 - IP address: 34.235.117.81
+- Application URL: ec2-34-235-117-81.compute-1.amazonaws.com
 
 ## Let's get started! 
 1. Create a user named grader and grant him/her sudo permission
