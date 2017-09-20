@@ -9,35 +9,35 @@ The purpose of this project is to configure a Linux virtual machine to host my I
 
 ## Let's get started! 
 1. Create a user named grader and grant him/her sudo permission
-  - SSH into the server through ssh -i ~/.ssh/udacity_key.rsa root@34.235.117.81
-  - Create grader user sudo adduser grader
-  - Create the a new file in the sudoers directory sudo nano /etc/sudoers.d/grader
+  - SSH into the server through ```ssh -i ~/.ssh/udacity_key.rsa root@34.235.117.81```
+  - Create grader user ```sudo adduser grader```
+  - Create the a new file in the sudoers directory ```sudo nano /etc/sudoers.d/grader```
   - Input the the following text grader ALL=(ALL:ALL) ALL
-  - Type sudo nano /ect/hosts
+  - Type ```sudo nano /ect/hosts```
 
 2. Update all currently installed packages
-  - sudo apt-get update 
-  - sudo apt-get upgrade
+  - ```sudo apt-get update ```
+  - ```sudo apt-get upgrade```
 
 3. Change SSH port from 22 to 2200 
-- sudo nano /ect/ssh/ssh_config
+- ```sudo nano /ect/ssh/ssh_config```
 - Changet the port from 22 to 2200
-- Confirm by running ssh -i ~/.ssh/udacity_key.rsa -p 2200 root@34.235.117.81
+- Confirm by running ```ssh -i ~/.ssh/udacity_key.rsa -p 2200 root@34.235.117.81```
 
 4. Configure the UFW (Uncomplicated Firewall) to only allow incoming connections fro SSH port 2200, HTTP port 80 and NTP port 123
-- sudo ufw allow 80/tcp
-- sudo ufw allow 2200/tcp
-- sudo ufw allow 123/udp
-- sudo ufw allow enable
+- ```sudo ufw allow 80/tcp```
+- ```sudo ufw allow 2200/tcp```
+- ```sudo ufw allow 123/udp```
+- ```sudo ufw allow enable```
 
 5. Configure the local timezone to UTC
-- sudo dpkg-reconfigure tzdata and choose UTC
+- ```sudo dpkg-reconfigure tzdata and choose UTC```
 
 6. Configure key based authentication for grader user
-- cp/root/.ssh/authorized_key /home/grader/.ssh/authorized_keys
+- ```cp/root/.ssh/authorized_key /home/grader/.ssh/authorized_keys```
 
 7. Disable ssh login for root user 
-- sudo nano /etc/ssh/sshd_config
+- ```sudo nano /etc/ssh/sshd_config```
 - change PermitRootLogin without-password to PermitRootLogin no
 - Restart ssh with sudo service ssh restart 
 - Now you should be able to login with ssh -i ~/.ssh/udacity_key.rsa -p 2200 grader@34.235.117.81
