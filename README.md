@@ -39,37 +39,60 @@ The purpose of this project is to configure a Linux virtual machine to host my I
 7. Disable ssh login for root user 
 - ```sudo nano /etc/ssh/sshd_config```
 - change PermitRootLogin without-password to PermitRootLogin no
-- Restart ssh with sudo service ssh restart 
-- Now you should be able to login with ssh -i ~/.ssh/udacity_key.rsa -p 2200 grader@34.235.117.81
+- Restart ssh with ```sudo service ssh restart``` 
+- Now you should be able to login with ```ssh -i ~/.ssh/udacity_key.rsa -p 2200 grader@34.235.117.81```
 
 8. Install Apache
-- sudo apt-get install apache2
+- ```sudo apt-get install apache2```
 
 9. Install mod_wsgi
-- sudo apt-get install libache2-mod-wsgi
-- Enable mod_wsgi with sudo a2enmod wsgi
-- start the server sudo service apache2 start 
+- ```sudo apt-get install libache2-mod-wsgi```
+- Enable mod_wsgi with ```sudo a2enmod wsgi```
+- start the server ```sudo service apache2 start ```
 
 10. Clone the Item Catalog app from Github
-- sudo apt-get install git 
-- cd/var/www/html
-- sudo mkdir DirtbikeCatalog
-- cd /DirtbikeCatalog
+- ```sudo apt-get install git ```
+- ```cd/var/www/html```
+- ```sudo mkdir DirtbikeCatalog```
+- ```cd /DirtbikeCatalog```
 - clone my Item catalog project from https://github.com/RyGuy860/DirtbikeCatalog.git
 - Create a catalog.wsgi file and add the following
 
 11. Install Flask and other dependencies 
-- Install pip sudo apt-get install python-pip
-- Install Flask pip install Flask 
-- Install dependencies sudo pip install httplib2 oauth2client sqlalchemy psycopg2
+- Install pip ```sudo apt-get install python-pip```
+- Install Flask ```pip install Flask``` 
+- Install dependencies ```sudo pip install httplib2 oauth2client sqlalchemy psycopg2```
 
 12. Update path of client_secrets.json file
-- sudo nano __init__.py
+- ```sudo nano __init__.py```
 - Change the client_secrets.json path to /var/www/html/DirtbikeCatalog/DirtbikeCatalog/client_secrets.json
 
-13. Configure and enable a new virtual host 
-- sudo nano /etc/apache2/sites-abailable/catalog.conf
+13. Configure Apache to handle requests using the WSGI module 
+- sudo nano /etc/apache2/sites-enabled/000-default.conf 
 - past the following code:
+```<VirtualHost *:80>
+                ServerName localhost
+                ServerAdmin admin@mywebsite.com
+                WSGIScriptAlias / /var/www/html/DirtbikeCatalog/DirtbikeCatalog$
+                <Directory /var/www/html/DirtbikeCatalog/DirtbikeCatalog/>
+                        Order allow,deny
+                        Allow from all
+                </Directory>
+                Alias /static /var/www/html/DirtbikeCatalog/DirtbikeCatalog/vag$
+                <Directory /var/www/html/DirtbikeCatalog/DirtbikeCatalog/vagran$
+                        Order allow,deny
+                        Allow from all
+                </Directory>
+                Alias /templates /var/www/html/DirtbikeCatalog/DirtbikeCatalog/$
+                <Directory /var/www/html/DirtbikeCatalog/DirtbikeCatalog/vagran$
+                        Order allow,deny
+                        Allow from all
+                </Directory>
+                ErrorLog ${APACHE_LOG_DIR}/error.log
+                LogLevel warn
+                CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
 
 14. Install and configure PostgreSQL
 - sudo apt-get install postgresql
@@ -81,3 +104,4 @@ The purpose of this project is to configure a Linux virtual machine to host my I
 - Change create engint line in your __init__.py and database_setup.py to engine = create_engine('postgresql://catalog:password@localhost/catalog')
 15. Restart Apache
 - sudo service apache2 restart
+### Now you should be up and running! 
