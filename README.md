@@ -69,7 +69,7 @@ The purpose of this project is to configure a Linux virtual machine to host my I
 
 13. Configure Apache to handle requests using the WSGI module 
 - sudo nano /etc/apache2/sites-enabled/000-default.conf 
-- past the following code:
+- paste the following code:
 ```
 <VirtualHost *:80>
                 ServerName localhost
